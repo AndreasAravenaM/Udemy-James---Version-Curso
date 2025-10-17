@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Portafolio</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="fanta.css" />
+    <link rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" 
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" 
+        crossorigin="anonymous" 
+        referrerpolicy="no-referrer" 
+    />
+</head>
+<body>
+    <header>
+        <a href="/">Links</a>
+        <nav>
+            <a target="_blank" href="https://github.com/AndreasAravenaM"><i class="fa-brands fa-github"></i></a>
+            <a target="_blank" href="https://www.linkedin.com/in/andreas-aravena-maldonado/"><i class="fa-brands fa-linkedin"></i></a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <div class="intro-header">
+                <h1>Andreas Aravena Maldonado</h1>
+                <p>Ingeniero Informático</p>
+            </div>
+            <div>
+                <h1>Acerca de mí</h1>
+                <h5 class="intro-description">
+                    Desarrollador backend con 1 año de experiencia, especializado en el diseño, desarrollo
+                    y mantenimiento de sistemas robustos y escalables. He trabajado en la Bolsa de 
+                    Comercio de Santiago, donde participé en la migración de un sistema bancario complejo,
+                    enfrentando el desafío de adaptarme rápidamente a una tecnología completamente nueva
+                    para mí. Me destaco por mi capacidad de aprendizaje autónomo, resolución de problemas
+                    técnicos y compromiso con la calidad del software.
+                </h5>
+            </div>
+            <div class="links-container">
+                <i class="fa-solid link-arrow fa-arrow-right"></i>
+                <a target="_blank" href="mailto:andreas.aravenam@gmail.com">Correo</a>
+                <a target="_blank" href="https://github.com/AndreasAravenaM">GitHub</a>
+                <a target="_blank" href="https://www.linkedin.com/in/andreas-aravena-maldonado/">LinkedIn</a>
+            </div>
+            <div id="play-game">
+                <button onclick="playGame()">¿Un botón?¿Aquí?</button>
+            </div>
+            <div style="display: none;" class="color-div">
+                <h4>Elige un color</h4>
+                <p style="display: none;">Genial... Ahora está arruinado</p>
+                <input type="color" id="color-picker" onchange="" value="#0084ff"/>
+                <button style="display: none;" onclick="resetColor()"></button>
+            </div>
+        </section>
+        <section>
+            <h2>Habilidades</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Area</th>
+                        <th>Tecnologías</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>JavaScript</td>
+                        <td>ReactJS | React Native | NextJS | NodeJS & ExpressJS | SvelteKit | Qwik</td>
+                    </tr>
+                    <tr>
+                        <td>Python</td>
+                        <td>Data analysis | Django | Data visualization</td>
+                    </tr>
+                    <tr>
+                        <td>Web</td>
+                        <td>TailwindCSS | FantaCSS | Firebase | PostgreSQL | CI/CD | GIT | Docker | Kubernetes | AWS
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Design</td>
+                        <td>Canvas | Pixlr | Microsoft Paint</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h2>Proyectos a destacar</h2>
+            <div class="cards-grid">
+                <div class="project-card">
+                    <div>
+                        <p>Octubre X, 2025</p>
+                        <h4>Brogram</h4>
+                        <div class="tech-list">
+                            <div class="card-button-secondary">
+                                <p>ReactJS</p>
+                            </div>
+                            <div class="card-button-secondary">
+                                <p>FantaCSS</p>
+                            </div>
+                            <div class="card-button-secondary">
+                                <p>JavaScript</p>
+                            </div>
+                        </div>
+                        <p>Simple plan de ejercicio de 30 días.</p>
+                        <div class="project-links">
+                            <a target="_blank" href="">Live</a>
+                            <a target="_blank" href="">GitHub</a>
+                        </div>
+                    </div>
+                    <div class="img-div">
+                        <img class="big-img"
+                            src="/1-Portafolio/public/brogram.png"
+                            alt="thumbnail" />
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div>
+                        <p>Octubre Y, 2025</p>
+                        <h4>Smolstore</h4>
+                        <div class="tech-list">
+                            <div class="card-button-secondary">
+                                <p>NextJS</p>
+                            </div>
+                            <div class="card-button-secondary">
+                                <p>FantaCSS</p>
+                            </div>
+                            <div class="card-button-secondary">
+                                <p>Stripe</p>
+                            </div>
+                        </div>
+                        <p>¡Una genial tienda para programadores y monstruos de la productividad!
+                        </p>
+                        <div class="project-links">
+                            <a target="_blank" href="">Live</a>
+                            <a target="_blank" href="">GitHub</a>
+                        </div>
+                    </div>
+                    <div class="img-div">
+                        <img class="big-img"
+                            src="/1-Portafolio/public/smolstore.png"
+                            alt="thumbnail" />
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div>
+                        <p>Octubre Z, 2023</p>
+                        <h4>Expenny | The Subscription Tracker</h4>
+                        <div class="tech-list">
+                            <div class="card-button-secondary">
+                                <p>NextJS</p>
+                            </div>
+                            <div class="card-button-secondary">
+                                <p>FantaCSS</p>
+                            </div>
+                            <div class="card-button-secondary">
+                                <p>Firebase</p>
+                            </div>
+                        </div>
+                        <p>¡Monitorea tus datos de suscripciones!
+                        </p>
+                        <div class="project-links">
+                            <a target="_blank" href="">Live</a>
+                            <a target="_blank" href="">GitHub</a>
+                        </div>
+                    </div>
+                    <div class="img-div">
+                        <img class="big-img"
+                            src="/1-Portafolio/public/expenny.png"
+                            alt="thumbnail" />
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>Por <a target="_blank" href="https://www.linkedin.com/in/andreas-aravena-maldonado/"> mi</a>
+        . De nuevo, puede revisar mi <a target="_blank" href="https://github.com/AndreasAravenaM">GitHub</a>
+        y ver que otras cosas he hecho para volverme un mejor desarrollador.
+    </footer>
+    <script></script>
+</body>
+</html>
