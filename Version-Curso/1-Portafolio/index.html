@@ -21,6 +21,7 @@
             <a target="_blank" href="https://www.linkedin.com/in/andreas-aravena-maldonado/"><i class="fa-brands fa-linkedin"></i></a>
         </nav>
     </header>
+
     <main>
         <section>
             <div class="intro-header">
@@ -50,8 +51,8 @@
             <div style="display: none;" class="color-div">
                 <h4>Elige un color</h4>
                 <p style="display: none;">Genial... Ahora está arruinado</p>
-                <input type="color" id="color-picker" onchange="" value="#0084ff"/>
-                <button style="display: none;" onclick="resetColor()"></button>
+                <input type="color" id="color-picker" onchange="changeColor()" value="#0084ff"/>
+                <button style="display: none;" onclick="resetColor()">Resetear</button>
             </div>
         </section>
         <section>
@@ -175,10 +176,49 @@
             </div>
         </section>
     </main>
+
     <footer>Por <a target="_blank" href="https://www.linkedin.com/in/andreas-aravena-maldonado/"> mi</a>
         . De nuevo, puede revisar mi <a target="_blank" href="https://github.com/AndreasAravenaM">GitHub</a>
         y ver que otras cosas he hecho para volverme un mejor desarrollador.
     </footer>
-    <script></script>
+
+    <script>
+
+        const body = document.querySelector("body")
+        const colorInput = document.getElementById("color-picker")
+        const colorDiv = document.querySelector(".color-div")
+        const hiddenText = document.querySelector(".color-div p")
+        const resetBtn = document.querySelector(".color-div button")
+        const playBtn = document.getElementById("play-game")
+
+        function playGame() {
+
+            colorDiv.style.display = "block"
+            playBtn.style.display = "none"
+
+        }
+
+        function changeColor() {
+
+            const selectedColor = colorInput.value
+            body.style.background = selectedColor
+            hiddenText.style.display = "block"
+            resetBtn.style.display = "block"
+            colorInput.style.display = "none"
+
+        }
+
+        function resetColor() {
+
+            body.style.background = "white"
+            colorInput.style.display = "block"
+            playBtn.style.display = "block"
+            hiddenText.style.display = "none"
+            resetBtn.style.display = "none"
+            colorDiv.style.display = "none"
+            
+        }
+
+    </script>
 </body>
 </html>
