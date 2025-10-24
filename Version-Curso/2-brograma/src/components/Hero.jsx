@@ -20,7 +20,7 @@ export default function Hero() {
                 </div>
                 <div className="rule-item">
                     <p><b>Repeticiones</b></p>
-                    <p>Cada repetición debe seguir un tempo de 
+                    <p>Cada repetición debe seguir un tempo de
                         <abbr title="2 segundo abajo - 2 segundos de pausa - 2 segundos arriba">
                         2 - 2 - 2 tempo.</abbr></p>
                 </div>

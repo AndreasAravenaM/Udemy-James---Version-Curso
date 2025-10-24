@@ -4,7 +4,7 @@ import WorkoutCard from "./WorkoutCard.jsx"
 export default function Grid() {
 
     const isLocked = false
-    const selectedWorkout = 0
+    const selectedWorkout = 4
 
     return (
 
@@ -48,13 +48,21 @@ export default function Grid() {
                     
                 )
 
+                const dayNum = ((workoutIndex / 8) <= 1) ? '0' + (workoutIndex + 1) : workoutIndex + 1
+
                 const trainingPlan = training_plan[workoutIndex]
 
                 if (selectedWorkout === workoutIndex) {
 
                     return (
 
-                        <WorkoutCard key={workoutIndex} />
+                        <WorkoutCard key={workoutIndex}  
+                            trainingPlan={trainingPlan} 
+                            type={type}
+                            icon={icon} 
+                            workoutIndex={workoutIndex}
+                            dayNum={dayNum}
+                        />
 
                     )
 
@@ -76,7 +84,7 @@ export default function Grid() {
 
                         <div className='plan-card-header'>
 
-                            <p> Day {((workoutIndex / 8) <= 1) ? '0' + (workoutIndex + 1) : workoutIndex + 1}</p>
+                            <p> Day {dayNum}</p>
 
                         </div>
 
