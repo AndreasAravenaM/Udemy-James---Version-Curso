@@ -1,13 +1,19 @@
 import React from "react"
+import Modal from "./Modal"
 
 export default function WorkoutCard(props) {
 
     const {trainingPlan, workoutIndex, type, icon, dayNum} = props
     const {warmup, workout} = trainingPlan || {}
+    const showExerciseDescription = {name: "", description: ""}
 
     return (
 
         <div className="workout-container">
+
+            {/*<Modal showExerciseDescription={showExerciseDescription}
+                handleCloseModal={() => {}}
+            />*/}
 
             <div className="workout-card card">
 

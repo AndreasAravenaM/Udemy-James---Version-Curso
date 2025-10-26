@@ -8,7 +8,7 @@ export default function Grid() {
 
     return (
 
-        <div className="training-grid-plan">
+        <div className="training-plan-grid">
 
             {Object.keys(training_plan).map((workout, workoutIndex) => {
 
@@ -84,11 +84,9 @@ export default function Grid() {
 
                         <div className='plan-card-header'>
 
-                            <p> Day {dayNum}</p>
+                            <p> Día {dayNum}</p>
 
-                        </div>
-
-                        {isLocked ? (
+                            {isLocked ? (
 
                             <i className='fa-solid fa-lock'></i>
 
@@ -97,6 +95,8 @@ export default function Grid() {
                             icon
 
                         )}
+
+                        </div>
 
                         <div className='plan-card-header'>
 
