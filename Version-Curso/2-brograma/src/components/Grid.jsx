@@ -1,10 +1,56 @@
+import { useEffect, useState } from 'react'
 import { workoutProgram as training_plan } from '../utils/index.js'
 import WorkoutCard from "./WorkoutCard.jsx"
 
 export default function Grid() {
 
     const isLocked = false
-    const selectedWorkout = 4
+    const [savedWorkouts, setSavedWorkouts] = useState(null)
+    const [selectedWorkout, setSelectedWorkout] = useState(null)
+    const completeWorkouts = []
+
+    function handleSave (index, data) {
+
+        const newObj = {
+
+            ...savedWorkouts,
+            [index]: {
+
+                ...data,
+                isComplete: !!data.isComplete || savedWorkouts?.[index]?.isComplete
+
+            }
+        }
+
+        setSavedWorkouts(newObj)
+        localStorage.setItem("brograma", JSON.stringify(newObj));
+        setSelectedWorkout(null)
+
+    }
+
+    function handleComplete (index, data) {
+
+        const newObj = {...data}
+        newObj.isComplete = true
+        handleSave(index, newObj)
+
+    }
+
+    useEffect(() => {
+
+        if(!localStorage) {return}
+
+        let savedData = {}
+
+        if(localStorage.getItem("brograma")) {
+
+            savedData = JSON.parse(localStorage.getItem("brograma"))
+
+        }
+
+        setSavedWorkouts(savedData)
+
+    }, [])
 
     return (
 
@@ -62,6 +108,9 @@ export default function Grid() {
                             icon={icon} 
                             workoutIndex={workoutIndex}
                             dayNum={dayNum}
+                            handleSave={handleSave}
+                            handleComplete={handleComplete}
+                            savedWeights={savedWorkouts?.[workoutIndex]?.weights}
                         />
 
                     )
@@ -80,7 +129,11 @@ export default function Grid() {
 
                 return (
 
-                    <button className={gridType} key={workoutIndex}>
+                    <button onClick={() => {
+
+                        setSelectedWorkout(workoutIndex)
+
+                    }} className={gridType} key={workoutIndex}>
 
                         <div className='plan-card-header'>
 

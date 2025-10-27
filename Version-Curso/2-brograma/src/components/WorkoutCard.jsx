@@ -1,19 +1,38 @@
-import React from "react"
+import React, {use, useState} from "react"
 import Modal from "./Modal"
+import {exerciseDescriptions} from "../utils"
 
 export default function WorkoutCard(props) {
 
-    const {trainingPlan, workoutIndex, type, icon, dayNum} = props
+    const {trainingPlan, workoutIndex, type, icon, dayNum, savedWeights, handleSave, handleComplete} = props
     const {warmup, workout} = trainingPlan || {}
-    const showExerciseDescription = {name: "", description: ""}
+    const [showExerciseDescription, setShowExerciseDescription] = useState(null)
+    const [weights, setWeights] = useState(savedWeights || {})
+
+    function handleAddWeight (title, weight) {
+
+        const newObj = {
+
+            ...weights,
+            [title]:  weight
+
+        }
+
+        setWeights(newObj)
+
+    }
 
     return (
 
         <div className="workout-container">
 
-            {/*<Modal showExerciseDescription={showExerciseDescription}
-                handleCloseModal={() => {}}
-            />*/}
+            {showExerciseDescription && (<Modal showExerciseDescription={showExerciseDescription}
+                handleCloseModal={() => {
+
+                    setShowExerciseDescription(null)
+
+                }}
+            />)}
 
             <div className="workout-card card">
 
@@ -54,7 +73,16 @@ export default function WorkoutCard(props) {
 
                                 <p>{warmupIndex + 1}. {warmupExercise.name}</p>
 
-                                <button className="help-icon">
+                                <button onClick={() => {
+
+                                    setShowExerciseDescription({
+
+                                        name: warmupExercise.name,
+                                        description: exerciseDescriptions[warmupExercise.name]
+
+                                    })
+
+                                }} className="help-icon">
 
                                     <i className="fa-regular fa-circle-question" />
 
@@ -87,17 +115,26 @@ export default function WorkoutCard(props) {
                 <h6>Repeticiones</h6>
                 <h6 className="weight-input">Peso máximo</h6>
 
-                {workout.map((workoutExercise, workoutIndex) => {
+                {workout.map((workoutExercise, wIndex) => {
 
                     return (
 
-                        <React.Fragment key={workoutIndex}>
+                        <React.Fragment key={wIndex}>
 
                             <div className="exercise-name">
 
-                                <p>{workoutIndex + 1}. {workoutExercise.name}</p>
+                                <p>{wIndex + 1}. {workoutExercise.name}</p>
 
-                                <button className="help-icon">
+                                <button onClick={() => {
+
+                                    setShowExerciseDescription({
+
+                                        name: workoutExercise.name,
+                                        description: exerciseDescriptions[workoutExercise.name]
+
+                                    })
+
+                                }} className="help-icon">
 
                                     <i className="fa-regular fa-circle-question" />
 
@@ -107,7 +144,11 @@ export default function WorkoutCard(props) {
 
                             <p className="exercise-info">{workoutExercise.sets}</p>
                             <p className="exercise-info">{workoutExercise.reps}</p>
-                            <input className="weight-input" placeholder="5" />
+                            <input value={weights[workoutExercise.name || ""]} onChange={(e) => {
+
+                                handleAddWeight(workoutExercise.name, e.target.value)
+
+                            }} className="weight-input" placeholder="5" />
 
                         </React.Fragment>
 
@@ -119,8 +160,17 @@ export default function WorkoutCard(props) {
 
             <div className="workout-buttons">
 
-               <button>Guardar y Salir</button>
-               <button disabled={true}>Completar</button>
+                <button onClick={() => {
+
+                    handleSave(workoutIndex, {weights})
+
+                }} >Guardar y Salir</button>
+
+                <button onClick={() =>{
+
+                    handleComplete(workoutIndex, {weights})
+
+                }} disabled={true}>Completar</button>
 
             </div>
 
