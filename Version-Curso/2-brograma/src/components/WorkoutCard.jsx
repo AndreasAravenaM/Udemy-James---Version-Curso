@@ -170,7 +170,7 @@ export default function WorkoutCard(props) {
 
                     handleComplete(workoutIndex, {weights})
 
-                }} disabled={true}>Completar</button>
+                }} disabled={Object.keys(weights).length !== workout.length}>Completar</button>
 
             </div>
 

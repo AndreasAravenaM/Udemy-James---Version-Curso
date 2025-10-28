@@ -4,10 +4,14 @@ import WorkoutCard from "./WorkoutCard.jsx"
 
 export default function Grid() {
 
-    const isLocked = false
     const [savedWorkouts, setSavedWorkouts] = useState(null)
     const [selectedWorkout, setSelectedWorkout] = useState(null)
-    const completeWorkouts = []
+    const completeWorkouts = Object.keys(savedWorkouts || {}).filter((val) => {
+
+        const entry = savedWorkouts[val]
+        return entry.isComplete
+
+    })
 
     function handleSave (index, data) {
 
@@ -57,6 +61,10 @@ export default function Grid() {
         <div className="training-plan-grid">
 
             {Object.keys(training_plan).map((workout, workoutIndex) => {
+
+                const isLocked = workoutIndex === 0 ?
+                    false :
+                    !completeWorkouts.includes(`${workoutIndex - 1}`)
 
                 const type = workoutIndex % 3 === 0 ? (
 
@@ -130,6 +138,8 @@ export default function Grid() {
                 return (
 
                     <button onClick={() => {
+
+                        if(isLocked) {return}
 
                         setSelectedWorkout(workoutIndex)
 
