@@ -4,9 +4,10 @@ export default function NotFound() {
 
     return (
 
-        <div>
+        <div className="page-container">
 
-            <h2>Página no encontrada:C</h2>
+            <h2>Página no encontrada :C</h2>
+            <p className="text-large">404</p>
 
             <Link href="/">
             

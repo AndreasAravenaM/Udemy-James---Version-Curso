@@ -15,7 +15,7 @@ export default function Error(props) {
 
     return (
 
-        <div>
+        <div className="page-container">
 
             <h3>Ha ocurrido un error :C</h3>
 

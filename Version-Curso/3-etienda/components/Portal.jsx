@@ -1,12 +1,19 @@
-export default function Portal() {
+import ReactDom from "react-dom"
 
-    return (
+export default function Portal(props) {
 
-        <div>
+    const {children, handleClosePortal} = props
 
-            
+    return ReactDom.createPortal (
 
-        </div>
+        <div className="portal-container">
+
+            <div className="portal-underlay" onClick={handleClosePortal}/>
+            {children}
+
+        </div>,
+
+        document.getElementById("portal")
 
     )
 

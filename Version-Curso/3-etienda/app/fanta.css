@@ -99,7 +99,8 @@ button {
     width: fit-content;
 }
 
-h1 {
+h1,
+.text-large {
     font-size: 1.875rem;
     line-height: 2.25rem;
 }
@@ -109,7 +110,8 @@ h2 {
     line-height: 2rem;
 }
 
-h3 {
+h3,
+.text-medium {
     font-size: 1.25rem;
     line-height: 1.75rem;
 }
@@ -619,7 +621,8 @@ details[open] summary {
         line-height: 1.5rem;
     }
 
-    h1 {
+    h1,
+    .text-large {
         font-size: 2.25rem;
         line-height: 2.5rem;
     }
@@ -629,7 +632,8 @@ details[open] summary {
         line-height: 2.25rem;
     }
 
-    h3 {
+    h3,
+    .text-medium {
         font-size: 1.5rem;
         line-height: 2rem;
     }
