@@ -199,6 +199,12 @@ main,
     flex-direction: column;
 }
 
+.sticker-info h4 {
+
+    font-size: 1.5rem;
+
+}
+
 .sticker-details {
 
     display: -webkit-box;

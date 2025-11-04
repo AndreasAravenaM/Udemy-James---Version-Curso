@@ -2,24 +2,15 @@
 
 import { useState } from "react"
 import Portal from "./Portal"
+import { useProducts } from "@/context/ProductContext"
 
-export default function Products() {
+export default function Products(props) {
 
+    const {planner, stickers} = props
     const [portalImage, setPortalImage] = useState(null)
+    const {handleAddProduct, cart} = useProducts
 
-    const stickerDescriptions = {
-
-        CSS_HTML_Javascript: "Tecnologías web base para la estructura, el estilo y la interactividad. Todo desarrollador debe de iniciar en éstas tecnologías si quieren aprender frontend",
-        Docker: "Plataforma para contenerizar, implementar y escalar aplicaciones.",
-        Firebase: "Plataforma en la nube para bases de datos, autenticación y backend de aplicaciones.",
-        NextJS: "Framework basado en React para renderización del lado del servidor y sitios estáticos.",
-        NodeJS: "Entorno de ejecución de JavaScript para crear aplicaciones de backend escalables.",
-        PostgreSQL: "Base de datos robusta de código abierto con capacidades avanzadas de consulta.",
-        ReactJS: "Biblioteca Javascript para crear interfaces de usuario interactivas."
-
-    }
-
-    const stickers = Object.keys(stickerDescriptions)
+    if(!planner || !stickers.length) { return null}
 
     return (
 
@@ -117,17 +108,22 @@ export default function Products() {
 
                     {stickers.map((sticker, stickerIndex) => {
 
+                        const stickerName = sticker.name
+                        const stickerImgURL = stickerName.replaceAll(" Sticker.jpeg", "").replaceAll(" ", "_")
+                        const stickerDescription = sticker.description
+                        const stickerPrice = (sticker.prices[0].unit_amount)/100
+
                         return (
 
                             <div key={stickerIndex} className="sticker-card">
 
                                 <button className="img-button" onClick={() => {
                                     
-                                        setPortalImage(sticker)
+                                        setPortalImage(stickerImgURL)
                                         
                                     }}>
 
-                                    <img src={`low_res/${sticker}.jpeg`} alt={`${sticker}-low-res`}/>
+                                    <img src={`low_res/${stickerImgURL}.jpeg`} alt={`${stickerImgURL}-low-res`}/>
 
                                 </button>
 
@@ -139,17 +135,17 @@ export default function Products() {
 
                                             <p className="text-medium">
 
-                                                {sticker.replaceAll("_", " ")} Sticker.png
+                                                {stickerName}
 
                                             </p>
 
                                         </div>
 
-                                        <p>{stickerDescriptions[sticker]}</p>
+                                        <p>{stickerDescription}</p>
 
                                     </div>
                     
-                                    <h4><span>$</span>4.000</h4>
+                                    <h4><span>$</span>{stickerPrice}</h4>
 
                                     <div className="purchase-btns">
 

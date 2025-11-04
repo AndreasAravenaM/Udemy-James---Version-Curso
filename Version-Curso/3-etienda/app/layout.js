@@ -4,6 +4,7 @@ import Head from "./head";
 import Link from "next/link";
 import Cart from "@/components/Cart"
 import EmailInput from "@/components/EmailInput";
+import ProductProvider from "@/context/ProductContext";
 
 export const metadata = {
   title: "Pequeña Tienda",
@@ -94,30 +95,36 @@ export default function RootLayout({ children }) {
 
   return (
 
-    <html lang="en">
+    <ProductProvider>
 
-      <Head />
+      <html lang="en">
 
-      <body>
+        <Head />
 
-        <div id="portal" />
-        <div id="app">
+        <body>
 
-          {header}
+          <div id="portal" />
+          <div id="app">
 
-          <main>
+            {header}
 
-            {children}
+            <main>
 
-          </main>
+              {children}
 
-          <div className="hr" />
+            </main>
 
-          {footer}
+            <div className="hr" />
 
-        </div>
+            {footer}
 
-      </body>
-    </html>
+          </div>
+
+        </body>
+        
+      </html>
+
+    </ProductProvider>
+
   );
 }
