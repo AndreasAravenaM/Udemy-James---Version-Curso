@@ -1,0 +1,31 @@
+import Stripe from "stripe";
+import "../../../envConfig"
+
+const API_KEY = process.env.STRIPE_SECRET_KEY
+const stripe = new Stripe(API_KEY)
+
+export async function POST(request) {
+
+    try {
+
+        const { lineItems } = await request.json()
+        const session = await stripe.checkout.sessions.create({
+
+            mode: "payment",
+            line_items: lineItems,
+            success_url: process.env.NEXT_PUBLIC_BASE_URL + "/success",
+            cancel_url: process.env.NEXT_PUBLIC_BASE_URL + "/"
+
+        })
+
+        return Response.json(session)
+
+
+    } catch (err) {
+
+        console.error("Ha ocurrido el siguiente error al intentar pagar con Stripe:", err.message)
+        return Response.json({error: "Ha ocurrido un error al intentar pagar con Stripe"})
+
+    }
+
+}

@@ -45,6 +45,14 @@ header {
     padding-right: 0.5rem;
 }
 
+.cart-num {
+    position: absolute;
+    top: -8px;
+    right: -5px;
+    color: #030615;
+    font-family: "Grenze", serif;
+}
+
 .header-content h1 {
     background: #030615;
     color: white;
@@ -203,6 +211,54 @@ main,
 
     font-size: 1.5rem;
 
+}
+
+.sticker-info h4 span {
+    font-size: 0.8rem;
+    padding-right: 0.1rem;
+}
+
+.cart-section {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 1rem;
+    padding-bottom: 2rem;
+}
+
+.cart-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 2rem 1rem;
+}
+
+.cart-item {
+    display: flex;
+    gap: 1rem;
+}
+
+.cart-item img {
+    width: 30%;
+    height: fit-content;
+}
+
+.cart-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.cart-item-info input {
+    width: 100px;
+}
+
+.checkout-container {
+    padding-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
 }
 
 .sticker-details {
@@ -403,6 +459,10 @@ footer .links-container>div {
 
         padding-bottom: 0.75rem;
 
+    }
+
+    .cart-item {
+        gap: 2rem;
     }
 
 }

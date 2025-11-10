@@ -8,7 +8,7 @@ export default function Products(props) {
 
     const {planner, stickers} = props
     const [portalImage, setPortalImage] = useState(null)
-    const {handleAddProduct, cart} = useProducts
+    const {handleIncrementProduct, cart} = useProducts()
 
     if(!planner || !stickers.length) { return null}
 
@@ -85,7 +85,12 @@ export default function Products(props) {
                         
                         <div className="purchase-btns">
 
-                            <button>Agregar al carro</button>
+                            <button onClick={() => {
+
+                                const plannerPriceId = planner.default_price
+                                handleIncrementProduct(plannerPriceId, 1, planner)
+
+                            }}>Agregar al carro</button>
 
                         </div>
 
@@ -149,7 +154,12 @@ export default function Products(props) {
 
                                     <div className="purchase-btns">
 
-                                        <button>Agregar al carro</button>
+                                        <button onClick={() => {
+
+                                        const stickerPriceId = sticker.default_price
+                                        handleIncrementProduct(stickerPriceId, 1, sticker)
+
+                                    }}>Agregar al carro</button>
 
                                     </div>
 

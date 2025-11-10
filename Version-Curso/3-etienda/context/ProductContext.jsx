@@ -8,25 +8,50 @@ export default function ProductProvider(props) {
 
     const {children} = props
 
-    const {cart, setCart} = useState([])
+    const [cart, setCart] = useState({})
 
-    function handleAddProduct() {
+    function handleIncrementProduct(price_id, num, data, noIncrement = false) {
 
+        const newCart = {
 
+            ...cart
 
-    }
+        }
 
-    function handleDeleteProduct() {
+        if(price_id in cart) {
 
+            newCart[price_id] = {
+                
+                ...data,
+                quantity: noIncrement ? num : newCart[price_id]?.quantity + num
 
+            }
+
+        } else {
+
+            newCart[price_id] = {
+                
+                ...data,
+                quantity: num
+
+            }
+
+        }
+
+        if(parseInt(newCart[price_id].quantity) <= 0) {
+
+            delete newCart[price_id]
+
+        }
+
+        setCart(newCart)
 
     }
 
     const value = { 
         
         cart,
-        handleAddProduct,
-        handleDeleteProduct
+        handleIncrementProduct
     
     }
 
