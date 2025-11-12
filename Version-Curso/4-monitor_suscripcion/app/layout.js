@@ -6,8 +6,8 @@ import GoTo from "@/components/GoTo";
 
 
 export const metadata = {
-  title: "Monitor de suscripciones",
-  description: "Monitorea todos los análisis de tus suscripciones",
+  title: "Monitor de subscripciones",
+  description: "Monitorea todos los análisis de tus subscripciones",
 };
 
 export default function RootLayout({ children }) {
@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
         
         </Link>
 
-        <p>Monitorea tus suscripciones</p>
+        <p>Monitorea tus subscripciones</p>
 
       </div>
 

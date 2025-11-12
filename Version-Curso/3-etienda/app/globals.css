@@ -261,6 +261,13 @@ main,
     gap: 1rem;
 }
 
+.total-container {
+
+    display: flex;
+    justify-content: center;
+
+}
+
 .sticker-details {
 
     display: -webkit-box;

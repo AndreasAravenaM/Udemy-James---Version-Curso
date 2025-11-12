@@ -1,10 +1,12 @@
 import Login from "@/components/Login"
-import SuscriptionsDisplay from "@/components/SuscriptionsDisplay"
-import SuscriptionSummary from "@/components/SuscriptionSummary"
+import SubscriptionForm from "@/components/SubscriptionForm"
+import SubscriptionsDisplay from "@/components/SubscriptionsDisplay"
+import SubscriptionSummary from "@/components/SubscriptionSummary"
 
 export default function DashboardPage() {
 
-    const isAuthenticated = false
+    const isAuthenticated = true
+    const isAddEntry = true
 
     if(!isAuthenticated) {
 
@@ -20,8 +22,9 @@ export default function DashboardPage() {
 
         <>
 
-            <SuscriptionSummary />
-            <SuscriptionsDisplay />
+            <SubscriptionSummary />
+            <SubscriptionsDisplay />
+            {isAddEntry && (<SubscriptionForm />)}
 
         </>
 

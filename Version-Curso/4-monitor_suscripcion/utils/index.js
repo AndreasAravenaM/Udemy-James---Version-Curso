@@ -1,26 +1,26 @@
 export const calculateSubscriptionMetrics = (subscriptions) => {
     // Filter active subscriptions
-    const active_subscriptions = subscriptions.filter(sub => sub.status === "Active");
+    const subscripciones_activas = subscriptions.filter(sub => sub.status === "Activo");
 
     // Initialize metrics
-    let total_monthly_cost = 0;
-    let total_yearly_cost = 0;
+    let costo_mensual_total = 0;
+    let costo_anual_total = 0;
     let category_spending = {};
-    let upcoming_billing_count = 0;
-    let most_expensive_subscription = null;
+    let cuentas_por_pagar = 0;
+    let subscripción_más_cara = null;
 
     const today = new Date();
     const next_week = new Date();
     next_week.setDate(today.getDate() + 7);
 
-    active_subscriptions.forEach(sub => {
+    subscripciones_activas.forEach(sub => {
         // Ensure numeric values are properly parsed
         const cost = parseFloat(sub.cost) || 0;
         const billingFrequency = sub.billingFrequency;
 
-        const monthly_cost = billingFrequency === "Yearly" ? cost / 12 : cost;
-        total_monthly_cost += monthly_cost;
-        total_yearly_cost += billingFrequency === "Yearly" ? cost : cost * 12;
+        const monthly_cost = billingFrequency === "Anualmente" ? cost / 12 : cost;
+        costo_mensual_total += monthly_cost;
+        costo_anual_total += billingFrequency === "Anualmente" ? cost : cost * 12;
 
         // Track category spending
         if (!category_spending[sub.category]) {
@@ -29,64 +29,64 @@ export const calculateSubscriptionMetrics = (subscriptions) => {
         category_spending[sub.category] += cost;
 
         // Determine most expensive subscription
-        if (!most_expensive_subscription || cost > most_expensive_subscription.cost) {
-            most_expensive_subscription = sub;
+        if (!subscripción_más_cara || cost > subscripción_más_cara.cost) {
+            subscripción_más_cara = sub;
         }
 
         // Calculate next billing date
         const start_date = new Date(sub.startDate);
         let next_billing_date = new Date(start_date);
         while (next_billing_date < today) {
-            if (billingFrequency === "Monthly") {
+            if (billingFrequency === "Mensualmente") {
                 next_billing_date.setMonth(next_billing_date.getMonth() + 1);
-            } else if (billingFrequency === "Yearly") {
+            } else if (billingFrequency === "Anualmente") {
                 next_billing_date.setFullYear(next_billing_date.getFullYear() + 1);
             }
         }
 
         // Count upcoming billing within the next 7 days
         if (next_billing_date >= today && next_billing_date <= next_week) {
-            upcoming_billing_count++;
+            cuentas_por_pagar++;
         }
     });
 
     // Calculate average monthly spending
-    const average_monthly_spending = active_subscriptions.length > 0 ? total_monthly_cost / active_subscriptions.length : 0;
+    const gasto_mensual_promedio = subscripciones_activas.length > 0 ? costo_mensual_total / subscripciones_activas.length : 0;
 
     // Find the top spending category
-    let top_spending_category = Object.entries(category_spending).reduce((top, current) => current[1] > top[1] ? current : top, ["", 0])[0] || "None";
+    let categoría_de_mayor_costo = Object.entries(category_spending).reduce((top, current) => current[1] > top[1] ? current : top, ["", 0])[0] || "None";
 
     return {
-        total_monthly_cost: total_monthly_cost.toFixed(2),
-        total_yearly_cost: total_yearly_cost.toFixed(2),
-        average_monthly_spending: average_monthly_spending.toFixed(2),
-        active_subscriptions: active_subscriptions.length,
-        top_spending_category,
-        upcoming_billing_count,
-        most_expensive_subscription: most_expensive_subscription ? most_expensive_subscription.name : "None"
+        costo_mensual_total: costo_mensual_total.toFixed(2),
+        costo_anual_total: costo_anual_total.toFixed(2),
+        gasto_mensual_promedio: gasto_mensual_promedio.toFixed(2),
+        subscripciones_activas: subscripciones_activas.length,
+        categoría_de_mayor_costo,
+        cuentas_por_pagar,
+        subscripción_más_cara: subscripción_más_cara ? subscripción_más_cara.name : "Ninguno"
     };
 };
 
 
 // export const calculateSubscriptionMetrics = (subscriptions) => {
 //     // Filter active subscriptions
-//     const active_subscriptions = subscriptions.filter(sub => sub.status === "Active")
+//     const subscripciones_activas = subscriptions.filter(sub => sub.status === "Active")
 
 //     // Calculate total monthly and yearly costs
-//     let total_monthly_cost = 0
-//     let total_yearly_cost = 0
+//     let costo_mensual_total = 0
+//     let costo_anual_total = 0
 //     let category_spending = {}
-//     let upcoming_billing_count = 0
-//     let most_expensive_subscription = null
+//     let cuentas_por_pagar = 0
+//     let subscripción_más_cara = null
 
 //     const today = new Date()
 //     const next_week = new Date()
 //     next_week.setDate(today.getDate() + 7)
 
-//     active_subscriptions.forEach(sub => {
+//     subscripciones_activas.forEach(sub => {
 //         const monthly_cost = sub.billingFrequency === "Yearly" ? sub.cost / 12 : sub.cost
-//         total_monthly_cost += monthly_cost
-//         total_yearly_cost += sub.billingFrequency === "Yearly" ? sub.cost : sub.cost * 12
+//         costo_mensual_total += monthly_cost
+//         costo_anual_total += sub.billingFrequency === "Yearly" ? sub.cost : sub.cost * 12
 
 //         // Track category spending
 //         if (!category_spending[sub.category]) {
@@ -95,8 +95,8 @@ export const calculateSubscriptionMetrics = (subscriptions) => {
 //         category_spending[sub.category] += sub.cost
 
 //         // Determine most expensive subscription
-//         if (!most_expensive_subscription || sub.cost > most_expensive_subscription.cost) {
-//             most_expensive_subscription = sub
+//         if (!subscripción_más_cara || sub.cost > subscripción_más_cara.cost) {
+//             subscripción_más_cara = sub
 //         }
 
 //         // Calculate next billing date
@@ -112,24 +112,24 @@ export const calculateSubscriptionMetrics = (subscriptions) => {
 
 //         // Count upcoming billing within the next 7 days
 //         if (next_billing_date >= today && next_billing_date <= next_week) {
-//             upcoming_billing_count++
+//             cuentas_por_pagar++
 //         }
 //     })
 
 //     // Calculate average monthly spending
-//     const average_monthly_spending = active_subscriptions.length > 0 ? total_monthly_cost / active_subscriptions.length : 0
+//     const gasto_mensual_promedio = subscripciones_activas.length > 0 ? costo_mensual_total / subscripciones_activas.length : 0
 
 //     // Find the top spending category
-//     let top_spending_category = Object.entries(category_spending).reduce((top, current) => current[1] > top[1] ? current : top, ["", 0])[0] || "None"
+//     let categoría_de_mayor_costo = Object.entries(category_spending).reduce((top, current) => current[1] > top[1] ? current : top, ["", 0])[0] || "None"
 
 //     return {
-//         total_monthly_cost: total_monthly_cost.toFixed(2),
-//         total_yearly_cost: total_yearly_cost.toFixed(2),
-//         average_monthly_spending: average_monthly_spending.toFixed(2),
-//         active_subscriptions: active_subscriptions.length,
-//         top_spending_category,
-//         upcoming_billing_count,
-//         most_expensive_subscription: most_expensive_subscription ? most_expensive_subscription.name : "None"
+//         costo_mensual_total: costo_mensual_total.toFixed(2),
+//         costo_anual_total: costo_anual_total.toFixed(2),
+//         gasto_mensual_promedio: gasto_mensual_promedio.toFixed(2),
+//         subscripciones_activas: subscripciones_activas.length,
+//         categoría_de_mayor_costo,
+//         cuentas_por_pagar,
+//         subscripción_más_cara: subscripción_más_cara ? subscripción_más_cara.name : "None"
 //     }
 // }
 
@@ -142,8 +142,8 @@ export const formatKey = (key) => {
     return key
         .replace(/([A-Z])/g, " $1") // Add space before capital letters
         .replace(/^./, (str) => str.toUpperCase()) // Capitalize first letter
-        .replace("Upcoming Billing Dates", "Upcoming Bills (Next 7 Days)")
-        .replace("Trial Ending Soon", "Trials Ending Soon")
+        .replace("Fechas de cuentas a pagar", "Cuentas a pagar (en 7 días)")
+        .replace("Prueba termina pronto", "Pruebas terminan pronto")
 }
 
 export function getDaysUntilNextCharge(startDate, billingFrequency) {
@@ -152,22 +152,22 @@ export function getDaysUntilNextCharge(startDate, billingFrequency) {
 
     let nextBillingDate = new Date(start)
 
-    if (billingFrequency === "Monthly") {
+    if (billingFrequency === "Mensualmente") {
         // Add months until next charge is in the future
         while (nextBillingDate <= today) {
             nextBillingDate.setMonth(nextBillingDate.getMonth() + 1)
         }
-    } else if (billingFrequency === "Yearly") {
+    } else if (billingFrequency === "Anualmente") {
         // Add years until next charge is in the future
         while (nextBillingDate <= today) {
             nextBillingDate.setFullYear(nextBillingDate.getFullYear() + 1)
         }
-    } else if (billingFrequency === "Quarterly") {
+    } else if (billingFrequency === "Trimestralmente") {
         // Add quarters (3 months)
         while (nextBillingDate <= today) {
             nextBillingDate.setMonth(nextBillingDate.getMonth() + 3)
         }
-    } else if (billingFrequency === "One-time") {
+    } else if (billingFrequency === "Único") {
         // No recurring charges
         return "No upcoming charges"
     }
@@ -187,28 +187,28 @@ export const subscriptions = [
     {
         id: 1,
         name: "Netflix",
-        category: "Entertainment",
+        category: "Entretenimiento",
         cost: 15.99, // Monthly cost in USD
         currency: "USD",
-        billingFrequency: "Monthly", // Could be "Monthly", "Yearly", etc.
-        paymentMethod: "Credit Card", // e.g., Credit Card, PayPal, etc.
+        billingFrequency: "Mensualmente", // Could be "Monthly", "Yearly", etc.
+        paymentMethod: "Tarjeta de Crédito", // e.g., Credit Card, PayPal, etc.
         startDate: "2022-06-15", // Subscription start date
         renewalType: "Automatic", // Could be "Automatic" or "Manual"
-        notes: "Shared with family",
-        status: "Active", // Could be "Active", "Paused", or "Canceled"
+        notes: "Compartido con la familia",
+        status: "Activo", // Could be "Active", "Paused", or "Canceled"
     },
     {
         id: 2,
         name: "Spotify",
-        category: "Music",
+        category: "Música",
         cost: 9.99,
         currency: "USD",
-        billingFrequency: "Monthly",
+        billingFrequency: "Mensualmente",
         paymentMethod: "PayPal",
         startDate: "2021-11-01",
         renewalType: "Automatic",
-        notes: "Student discount applied",
-        status: "Active",
+        notes: "Descuento aplicado a estudiantes",
+        status: "Activo",
     },
     {
         id: 3,
@@ -216,12 +216,12 @@ export const subscriptions = [
         category: "Shopping",
         cost: 139.00,
         currency: "USD",
-        billingFrequency: "Yearly",
-        paymentMethod: "Credit Card",
+        billingFrequency: "Anualmente",
+        paymentMethod: "Tarjeta de Crédito",
         startDate: "2019-12-01",
         renewalType: "Automatic",
-        notes: "Includes Prime Video",
-        status: "Active",
+        notes: "Incluye Prime Video",
+        status: "Activo",
     },
     {
         id: 4,
@@ -229,37 +229,37 @@ export const subscriptions = [
         category: "Software",
         cost: 54.99,
         currency: "USD",
-        billingFrequency: "Monthly",
-        paymentMethod: "Credit Card",
+        billingFrequency: "Mensualmente",
+        paymentMethod: "Tarjeta de Crédito",
         startDate: "2023-03-01",
         renewalType: "Manual",
-        notes: "Used for video editing and design work",
-        status: "Active",
+        notes: "Usado para edición de vídeos y diseño",
+        status: "Activo",
     },
     {
         id: 5,
-        name: "Gym Membership",
-        category: "Health & Fitness",
+        name: "Membresía de gimnasio",
+        category: "Salud y Deporte",
         cost: 50.00,
         currency: "USD",
-        billingFrequency: "Monthly",
-        paymentMethod: "Debit Card",
+        billingFrequency: "Mensualmente",
+        paymentMethod: "Tarjeta de Débito",
         startDate: "2020-01-15",
         renewalType: "Automatic",
-        notes: "Access to multiple locations",
-        status: "Paused",
+        notes: "Accede a múltiples sedes",
+        status: "Pausado",
     },
     {
         id: 6,
-        name: "Domain Hosting (GoDaddy)",
-        category: "Web Services",
+        name: "Hosting de dominio (GoDaddy)",
+        category: "Servicios Web",
         cost: 12.00,
         currency: "USD",
-        billingFrequency: "Yearly",
-        paymentMethod: "Credit Card",
+        billingFrequency: "Anualmente",
+        paymentMethod: "Tarjeta de Crédito",
         startDate: "2021-08-20",
         renewalType: "Automatic",
-        notes: "Used for personal blog",
-        status: "Active",
+        notes: "Usado como blog personal",
+        status: "Activo",
     },
 ]

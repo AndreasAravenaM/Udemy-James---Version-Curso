@@ -127,6 +127,12 @@ export default function CartPage() {
 
         </div>
 
+        <div className="total-container">
+
+          <h2><strong>Total:</strong> ${total}</h2>
+
+        </div>
+
         <div className="checkout-container">
 
           <Link href="/">
