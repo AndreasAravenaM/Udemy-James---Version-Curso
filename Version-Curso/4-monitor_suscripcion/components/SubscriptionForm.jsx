@@ -1,6 +1,9 @@
 "use client"
 
-export default function SubscriptionForm() {
+import { useAuth } from "@/context/AuthContext"
+import { useState } from "react"
+
+export default function SubscriptionForm(props) {
 
     const categories = ["Entretenimiento", "Música", "Software", "Servicios Web", "Salud y Deporte", "Otro"]
     const currencies = ['USD', 'EUR', 'GBP', 'NZD', "AUD", 'Otro']
@@ -8,18 +11,30 @@ export default function SubscriptionForm() {
     const methods = ['Tarjeta de Crédito', 'Tarjeta de Débito', 'Paypal', 'Transferencia', "Otro"]
     const statuses = ["Activo", "Pausado", "Cancelado"]
 
+    const {onSubmit, closeInput, formData, handleChangeInput, handleResetForm} = props
+    const {handleAddSubscription} = useAuth()
+
+    function handleFormSumbit(e) {
+
+        e.preventDefault()
+        handleAddSubscription(formData)
+        handleResetForm()
+        closeInput()
+
+    }
+
     return (
 
         <section>
 
             <h2>Agrega una nueva subscripción</h2>
 
-            <form onSubmit={() => {}}>
+            <form onSubmit={handleFormSumbit}>
 
                 <label>
 
                     <span>Nombre subscripción</span>
-                    <input type="text" placeholder="Ej: Nexflix" required/>
+                    <input value={formData.name} onChange={handleChangeInput} name="name" type="text" placeholder="Ej: Nexflix" required/>
 
                 </label>
 
@@ -27,7 +42,7 @@ export default function SubscriptionForm() {
 
                     <span>Categoría</span>
 
-                    <select name="category">
+                    <select value={formData.category} onChange={handleChangeInput} name="category">
 
                         {categories.map((cat, catIndex) => {
 
@@ -50,7 +65,7 @@ export default function SubscriptionForm() {
                 <label>
 
                     <span>Costo</span>
-                    <input type="number" name="cost" step="0.01" placeholder="12.00" required/>
+                    <input value={formData.cost} onChange={handleChangeInput} type="number" name="cost" step="0.01" placeholder="12.00" required/>
 
                 </label>
 
@@ -58,7 +73,7 @@ export default function SubscriptionForm() {
 
                         <span>Moneda</span>
 
-                        <select name="currency">
+                        <select value={formData.currency} onChange={handleChangeInput} name="currency">
 
                             {currencies.map((cur, curIndex) => {
 
@@ -82,15 +97,19 @@ export default function SubscriptionForm() {
 
                     <span>Frecuencia de Pago</span>
 
-                    <select name="billingFrequency">
+                    <select value={formData.billingFrequency} onChange={handleChangeInput} name="billingFrequency">
 
                         {frequencies.map((bil, bilIndex) => {
 
-                            <option key={bilIndex}>
+                            return (
 
-                                {bil}
+                                <option key={bilIndex}>
 
-                            </option>
+                                    {bil}
+
+                                </option>
+
+                            )
 
                         })}
 
@@ -102,15 +121,19 @@ export default function SubscriptionForm() {
 
                     <span>Método de pago</span>
 
-                    <select name="paymentMethod">
+                    <select value={formData.paymentMethod} onChange={handleChangeInput} name="paymentMethod">
 
                         {methods.map((pay, payIndex) => {
 
-                            <option key={payIndex}>
+                            return (
 
-                                {pay}
+                                <option key={payIndex}>
 
-                            </option>
+                                    {pay}
+
+                                </option>
+
+                            )
 
                         })}
 
@@ -121,7 +144,7 @@ export default function SubscriptionForm() {
                 <label>
 
                     <span>Fecha de subscripción</span>
-                    <input type="date" name="startDate" required/>
+                    <input value={formData.startDate} onChange={handleChangeInput} type="date" name="startDate" required/>
 
                 </label>
 
@@ -129,15 +152,19 @@ export default function SubscriptionForm() {
 
                     <span>Estado</span>
 
-                    <select name="status">
+                    <select value={formData.status} onChange={handleChangeInput} name="status">
 
                         {statuses.map((sta, staIndex) => {
 
-                            <option key={staIndex}>
+                            return (
 
-                                {sta}
+                                <option key={staIndex}>
 
-                            </option>
+                                    {sta}
+
+                                </option>
+
+                            )
 
                         })}
 
@@ -148,14 +175,14 @@ export default function SubscriptionForm() {
                 <label className="fat-column">
 
                     <span>Notas</span>
-                    <textarea name="notes" placeholder="Ej: Incluye Prime Video"/>
+                    <textarea value={formData.notes} onChange={handleChangeInput} name="notes" placeholder="Ej: Incluye Prime Video"/>
 
                 </label>
 
                 <div className="fat-column form-submit-btn">
 
-                    <button>Cancelar</button>
-                    <button>Agregar subscripción</button>
+                    <button onClick={closeInput}>Cancelar</button>
+                    <button type="submit">Agregar subscripción</button>
 
                 </div>
 

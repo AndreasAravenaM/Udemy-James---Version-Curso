@@ -3,6 +3,7 @@ import "./fanta.css"
 import Head from "./Head";
 import Link from "next/link";
 import GoTo from "@/components/GoTo";
+import { AuthProvider } from "@/context/AuthContext";
 
 
 export const metadata = {
@@ -79,14 +80,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Head />
-      <body>
-        {header}
-        <div className="full-line"/>
-        <main>
-          {children}
-        </main>
-        {footer}
-      </body>
+      <AuthProvider>
+        <body>
+          {header}
+          <div className="full-line"/>
+          <main>
+            {children}
+          </main>
+          {footer}
+        </body>
+      </AuthProvider>
     </html>
   );
 }
